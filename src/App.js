@@ -230,6 +230,7 @@ export default function App() {
       body: JSON.stringify({
         trainee: `${firstName} ${lastName}`,
         scenario: scenario.title,
+        question: scenario.driverText, // <-- Add this line
         response: response,
         timeSpent: timeSpent,
         timestamp: new Date().toISOString(),
