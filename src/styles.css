@@ -120,3 +120,37 @@ button + button {
   align-items: center;
   z-index: 9998;
 }
+#bouncing-logo {
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  top: 100px;
+  left: 100px;
+  z-index: 0;
+  opacity: 0.3;
+  pointer-events: none;
+  animation: bounceLogo 20s linear infinite;
+}
+
+@keyframes bounceLogo {
+  0% {
+    top: 0;
+    left: 0;
+  }
+  25% {
+    top: 0;
+    left: calc(100vw - 100px);
+  }
+  50% {
+    top: calc(100vh - 100px);
+    left: calc(100vw - 100px);
+  }
+  75% {
+    top: calc(100vh - 100px);
+    left: 0;
+  }
+  100% {
+    top: 0;
+    left: 0;
+  }
+}

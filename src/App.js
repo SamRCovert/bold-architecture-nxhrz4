@@ -319,6 +319,9 @@ export default function App() {
   if (showDirectory) {
     return (
       <div className="container" style={{ position: "relative" }}>
+        {showDirectory && (
+          <img src="/BouncingLogo.PNG" alt="CPC Logo" id="bouncing-logo" />
+        )}
         <div className="card">
           <p style={{ fontWeight: "bold" }}>
             Welcome {firstName} {lastName}
