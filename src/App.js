@@ -455,13 +455,20 @@ export default function App() {
 }
 
 function exportToCSV(data) {
-  const headers = ["Trainee", "Scenario", "Response", "Time Spent (s)"];
+  const headers = [
+    "Trainee",
+    "Scenario Title",
+    "Question",
+    "Response",
+    "Time Spent (s)",
+  ];
   const rows = [];
   for (const [trainee, { responses, durations }] of Object.entries(data)) {
     [...sampleScenarios, ...toolsQuestions].forEach((s) => {
       rows.push([
         trainee,
         s.title,
+        s.driverText,
         responses[s.id] || "",
         durations[s.id] || 0,
       ]);
@@ -473,6 +480,7 @@ function exportToCSV(data) {
       headers.join(","),
       ...rows.map((r) => r.map((x) => `"${x}"`).join(",")),
     ].join("\n");
+
   const encodedUri = encodeURI(csvContent);
   const link = document.createElement("a");
   link.setAttribute("href", encodedUri);
