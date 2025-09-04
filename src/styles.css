@@ -1,0 +1,133 @@
+body {
+  background-color: #f4f6f8;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.login-logo {
+  width: 120px;
+  height: auto;
+  display: block;
+  margin: 0 auto 20px auto;
+  opacity: 0;
+  transform: translateY(-50px);
+  animation: dropIn 0.8s ease-out 1s forwards;
+}
+
+.card {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 600px;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.2rem;
+}
+
+button {
+  background-color: #3b82f6;
+  color: white;
+  padding: 10px 18px;
+  margin: 5px 0;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+button:hover {
+  background-color: #2563eb;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+.model-answer {
+  background-color: #eef2ff;
+  padding: 15px;
+  margin-top: 20px;
+  border-left: 4px solid #3b82f6;
+  border-radius: 6px;
+}
+
+button + button {
+  margin-left: 10px;
+}
+
+@keyframes dropIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+button {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+button + button {
+  margin-left: 0;
+}
+/* Truck animation */
+.truck-animation {
+  position: fixed;
+  bottom: 50px;
+  left: -200px;
+  width: 150px;
+  height: 80px;
+  background: url("/truck.png") no-repeat center center / contain;
+  animation: driveTruck 4s linear infinite;
+  z-index: 9999;
+}
+
+@keyframes driveTruck {
+  0% {
+    left: -200px;
+  }
+  100% {
+    left: 110%;
+  }
+}
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f4f6f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9998;
+}

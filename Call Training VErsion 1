@@ -1,0 +1,346 @@
+// Dispatcher Training Simulator with Trainer View and Export
+import React, { useState, useEffect } from "react";
+import "./styles.css";
+
+const scenarios = [
+  {
+    id: 1,
+    title: "Load Not Ready",
+    driverText:
+      "Hey, I’m at Lima, but my load’s not ready and they told me it's not even in a door.",
+    modelAnswer:
+      "Thanks for the update. I am gonna go ahead and mark this in our system for re-plan and get in touch with planning. Please hold tight and I will reach back out as soon as I get you something else.",
+  },
+  {
+    id: 2,
+    title: "Wrong Address",
+    driverText:
+      "I followed the GPS but this address looks wrong — it took me to a residential area.",
+    modelAnswer:
+      "I’m sorry about that. Let me verify the correct address. Can you send me your current location or a nearby landmark while I check with the customer?",
+  },
+  {
+    id: 3,
+    title: "Trailer Issue",
+    driverText:
+      "My trailer lights aren’t working properly, and it’s getting dark.",
+    modelAnswer:
+      "Safety first. Please pull over at a safe location and check the connections. If it’s not a quick fix, I’ll arrange road service.",
+  },
+];
+
+function exportToCSV(data) {
+  const headers = ["Trainee", "Scenario", "Response", "Tools", "Time Spent (s)"];
+  const rows = [];
+  for (const [trainee, { responses, toolsUsed, durations }] of Object.entries(data)) {
+    scenarios.forEach((s) => {
+      rows.push([
+        trainee,
+        s.title,
+        responses?.[s.id] || "",
+        toolsUsed?.[s.id] || "",
+        durations?.[s.id] || 0,
+      ]);
+    });
+  }
+  const csvContent =
+    "data:text/csv;charset=utf-8," +
+    [headers.join(","), ...rows.map((r) => r.map((x) => `"${x}"`).join(","))].join("
+");
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "trainee_responses.csv");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}] of Object.entries(data)) {
+    scenarios.forEach((s) => {
+      rows.push([
+        trainee,
+        s.title,
+        responses[s.id] || "",
+        durations[s.id] || 0,
+      ]);
+    });
+  }
+  const csvContent =
+    "data:text/csv;charset=utf-8," +
+    [headers.join(","), ...rows.map((r) => r.map((x) => `"${x}"`).join(","))].join("\n");
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "trainee_responses.csv");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+export default function App() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [isNamed, setIsNamed] = useState(false);
+  const [current, setCurrent] = useState(0);
+  const [response, setResponse] = useState("");
+  const [tools, setTools] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [completed, setCompleted] = useState(false);
+  const [responses, setResponses] = useState({});
+  const [durations, setDurations] = useState({});
+  const [startTime, setStartTime] = useState(Date.now());
+  const [allTrainees, setAllTrainees] = useState(() => {
+    const saved = localStorage.getItem("allTraineeData");
+    return saved ? JSON.parse(saved) : {};
+  });
+  const [showReviewPrompt, setShowReviewPrompt] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
+  const [expandedTrainee, setExpandedTrainee] = useState(null);
+
+  const scenario = scenarios[current];
+
+  useEffect(() => {
+    setStartTime(Date.now());
+    setResponse("");
+    setTools("");
+    setSubmitted(false);
+  }, [current]);
+
+  const handleSubmit = () => {
+    if (!response.trim()) {
+      alert("Please enter a response before submitting.");
+      return;
+    }
+    if (!tools.trim()) {
+      alert("Please list tools used for resolution.");
+      return;
+    }
+    const endTime = Date.now();
+    const timeSpent = Math.round((endTime - startTime) / 1000);
+    const traineeName = `${firstName} ${lastName}`;
+    const updatedResponses = {
+      ...(allTrainees[traineeName]?.responses || {}),
+      [scenario.id]: response,
+    };
+    const updatedDurations = {
+      ...(allTrainees[traineeName]?.durations || {}),
+      [scenario.id]: timeSpent,
+    };
+    const updatedAllTrainees = {
+      ...allTrainees,
+      [traineeName]: {
+        responses: updatedResponses,
+        durations: updatedDurations,
+        toolsUsed: {
+          ...(allTrainees[traineeName]?.toolsUsed || {}),
+          [scenario.id]: tools
+        },
+      },
+    };
+    setAllTrainees(updatedAllTrainees);
+    setResponses(updatedResponses);
+    setDurations(updatedDurations);
+    localStorage.setItem("allTraineeData", JSON.stringify(updatedAllTrainees));
+    setSubmitted(true);
+  };
+
+  const handleNext = () => {
+    if (current + 1 >= scenarios.length) {
+      setCompleted(true);
+    } else {
+      setCurrent(current + 1);
+    }
+  };
+
+  const handleNameSubmit = () => {
+    if (firstName.trim() && lastName.trim()) {
+      setResponses({});
+      setDurations({});
+      setCurrent(0);
+      setSubmitted(false);
+      setCompleted(false);
+      setIsNamed(true);
+    }
+  };
+
+  const handleRestart = () => {
+    setIsNamed(false);
+    setFirstName("");
+    setLastName("");
+    setCurrent(0);
+    setCompleted(false);
+    setResponses({});
+    setDurations({});
+    setSubmitted(false);
+    setShowReviewPrompt(false);
+    setIsAuthorized(false);
+    setPasswordInput("");
+  };
+
+  const handlePasswordSubmit = () => {
+    if (passwordInput === "CPCTrainer") {
+      setIsAuthorized(true);
+    } else {
+      alert("Incorrect password.");
+    }
+  };
+
+  const ReviewButton = () => (
+    <div style={{ position: "absolute", top: 20, right: 20 }}>
+      <button onClick={() => setShowReviewPrompt(true)}>Trainer Access</button>
+    </div>
+  );
+
+  if (!isNamed && !showReviewPrompt) {
+    return (
+      <div className="container">
+        <div className="card">
+          <h2>Enter Your Full Name to Begin</h2>
+          <input
+            type="text"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            placeholder="First Name"
+          />
+          <input
+            type="text"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            placeholder="Last Name"
+          />
+          <button onClick={handleNameSubmit}>Start Training</button>
+        </div>
+      </div>
+    );
+  }
+
+  if (showReviewPrompt && !isAuthorized) {
+    return (
+      <div className="container">
+        <div className="card">
+          <h2>Trainer Access</h2>
+          <input
+            type="password"
+            value={passwordInput}
+            onChange={(e) => setPasswordInput(e.target.value)}
+            placeholder="Enter trainer password"
+          />
+          <button onClick={handlePasswordSubmit}>Unlock Answers</button>
+          <button onClick={() => setShowReviewPrompt(false)}>Back</button>
+        </div>
+      </div>
+    );
+  }
+
+  if (isAuthorized) {
+    return (
+      <div className="container">
+        <div style={{ position: "absolute", bottom: 20, left: 20 }}>
+          <button onClick={handleRestart}>Back</button>
+        </div>
+        <div className="card">
+          <h2>Review All Trainee Answers</h2>
+          <button onClick={() => exportToCSV(allTrainees)} style={{ marginTop: '10px', marginBottom: '10px' }}>
+            Export to Excel
+          </button>
+          
+          {Object.entries(allTrainees).map(([name, data]) => (
+            <div
+              key={name}
+              onClick={() => setExpandedTrainee(name === expandedTrainee ? null : name)}
+              style={{
+                cursor: "pointer",
+                marginTop: "1rem",
+                background: "#eee",
+                padding: "0.5rem",
+                borderRadius: "5px",
+              }}
+            >
+              <strong>Trainee:</strong> {name} {expandedTrainee === name ? "▲" : "▼"}
+              {expandedTrainee === name && (
+                <div className="review-block">
+                  {scenarios.map((s) => (
+                    <div key={s.id} style={{ marginTop: "0.5rem" }}>
+                      <h4>
+                        Scenario {s.id}: {s.title}
+                      </h4>
+                      <p>
+                        <strong>Driver:</strong> "{s.driverText}"
+                      </p>
+                      <p>
+                        <strong>Response:</strong> {data.responses[s.id] || "(No response)"}
+                      </p>
+                      <p>
+                        <strong>Model Answer:</strong> {s.modelAnswer}
+                      </p>
+                      <p>
+                        <strong>Tools to Use:</strong> {data.toolsUsed?.[s.id] || "(No tools listed)"}
+                      </p>
+                      <p>
+                        <strong>Time Spent:</strong> {data.durations[s.id] || 0} seconds
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (completed) {
+    return (
+      <div className="container">
+        <ReviewButton />
+        <div className="card">
+          <h2>🎉 Congratulations!</h2>
+          <p>You have completed the Sample Call Training exercise.</p>
+          <button onClick={handleRestart}>Restart</button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container">
+      <ReviewButton />
+      <div style={{ position: "absolute", bottom: 20, left: 20 }}>
+        <button onClick={handleRestart}>Reset</button>
+      </div>
+      <div className="card">
+        <h2>
+          Scenario {scenario.id}: {scenario.title}
+        </h2>
+        <div className="driver-text">
+          <p>
+            <strong>Driver:</strong> "{scenario.driverText}"
+          </p>
+        </div>
+        <textarea
+          value={response}
+          onChange={(e) => setResponse(e.target.value)}
+          placeholder="Type your response here..."
+        />
+        <textarea
+          value={tools}
+          onChange={(e) => setTools(e.target.value)}
+          placeholder="Tools to use for resolution..."
+          style={{ marginTop: '10px' }}
+        />
+        {!submitted ? (
+          <button onClick={handleSubmit}>Submit Response</button>
+        ) : (
+          <>
+            <div className="model-answer">
+              <strong>Model Answer:</strong>
+              <p>{scenario.modelAnswer}</p>
+            </div>
+            <button onClick={handleNext}>Next Scenario</button>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
