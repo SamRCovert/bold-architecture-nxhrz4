@@ -341,7 +341,7 @@ export default function App() {
         )}
         <div className="card">
           <p style={{ fontWeight: "bold" }}>
-            Welcome to the team {firstName} {lastName}
+            Welcome to the team {firstName} {lastName}!
           </p>
           <h2>Select a Training Module</h2>
           <button
