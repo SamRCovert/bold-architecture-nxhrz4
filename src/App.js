@@ -50,47 +50,32 @@ OT1 to Check the driver logs for the previously assigned driver`,
   {
     id: 5,
     title: "Tools Question 6",
-    driverText:
-      "You’re tracking a relay and want to confirm if the handoff was successful. What tools would help verify the status of both drivers and the trailer?",
-    modelAnswer: `OT1 to check relay comments, timestamps, and equipment
-Road Ready to track trailer location
-TMW to verify both drivers' statuses and trip segments`,
+    driverText: "Sample",
+    modelAnswer: `Sample`,
   },
   {
     id: 6,
     title: "Tools Question 7",
-    driverText:
-      "A planner asks you to check whether a driver can legally deliver a load by a specific ETA. What tools would you reference to determine hours of service availability?",
-    modelAnswer: `OT1 Log Viewer to check the driver's available hours
-DRV_SHIFT to see who is scheduled and current shifts
-TMW ETA projection tools`,
+    driverText: "Sample",
+    modelAnswer: `Sample`,
   },
   {
     id: 7,
     title: "Tools Question 8",
-    driverText:
-      "You need to confirm if a trailer is empty and ready for the next load. What tools would you use to verify that status?",
-    modelAnswer: `TMW Trailer Dashboard to check current trailer status
-OT1 Equipment View for updates from the driver
-ROAR trailer reports for yard inventory status`,
+    driverText: "Sample",
+    modelAnswer: `Sample`,
   },
   {
     id: 8,
     title: "Tools Question 9",
-    driverText:
-      "A new hire is trying to find their assigned truck in a large yard. What tools can help them locate it?",
-    modelAnswer: `Road Ready or Fusion for last GPS ping
-TMW to cross-check truck assignments
-Dispatch Notes in OT1 for additional handoff instructions`,
+    driverText: "Sample",
+    modelAnswer: `Sample`,
   },
   {
     id: 9,
     title: "Tools Question 10",
-    driverText:
-      "A driver is stuck at a shipper and wants to know how long they’ve been on site. What tools could you use to verify and track their detention time?",
-    modelAnswer: `OT1 timestamps from check-in logs
-TMW Order Time Stamps (Arrived/Loaded times)
-Yard Management Systems or Shipper Portals if available`,
+    driverText: "Sample",
+    modelAnswer: `Sample`,
   },
 ];
 
@@ -356,7 +341,7 @@ export default function App() {
         )}
         <div className="card">
           <p style={{ fontWeight: "bold" }}>
-            Welcome {firstName} {lastName}
+            Welcome to the team {firstName} {lastName}
           </p>
           <h2>Select a Training Module</h2>
           <button
