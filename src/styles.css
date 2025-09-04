@@ -98,17 +98,6 @@ button {
 button + button {
   margin-left: 0;
 }
-/* Truck animation */
-.truck-animation {
-  position: fixed;
-  bottom: 50px;
-  left: -200px;
-  width: 150px;
-  height: 80px;
-  background: url("/truck.png") no-repeat center center / contain;
-  animation: driveTruck 4s linear infinite;
-  z-index: 9999;
-}
 
 @keyframes driveTruck {
   0% {
