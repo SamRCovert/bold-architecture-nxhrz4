@@ -359,7 +359,6 @@ export default function App() {
             Log Out
           </button>
         </div>
-        );
       </div>
     );
   }
