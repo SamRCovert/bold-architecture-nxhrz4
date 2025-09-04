@@ -14,7 +14,7 @@ const toolsQuestions = [
     id: 0,
     title: "Tools Question 1",
     driverText:
-      "Driver COVSA calls in stating that their DIR load has not yet arrived in Vandalia. What tools could assist you in locating the BOL?",
+      "Driver COVSA calls in stating that their DIR load has not yet arrived in Vandalia. What tools could assist you in locating the trailer?",
     modelAnswer: `Road Ready/Fusion to Track trailers last pinged location
 TMW Trip Grid to Locate the previous driver's ID that was assigned to the BOL
 OT1 to Check the driver logs for the previously assigned driver`,
