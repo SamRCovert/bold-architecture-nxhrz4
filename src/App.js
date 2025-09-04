@@ -1,4 +1,4 @@
-// Dispatcher Training Simulator with corrected scenario selection and Home button
+// Dispatcher Training Simulator with Google Sheets export (Sheet.best)
 import React, { useState, useEffect } from "react";
 import "./styles.css";
 
@@ -6,7 +6,6 @@ const audioFiles = {
   1: "/file_example_MP3_1MG.mp3",
   2: "/sample-12s%20Scenario%202%20test.mp3",
   3: "/sample-15s%20Scenario%203%20test.mp3",
-  // No audio for toolsQuestions[1]
 };
 
 const toolsQuestions = [
@@ -44,7 +43,7 @@ OT1 to Check the driver logs for the previously assigned driver`,
     id: 4,
     title: "Tools Question 5",
     driverText:
-      "You are asked to review log in times for driver's starting out of Shippensburg. What tools would you use to quickly check that the driver's logged in?  ",
+      "You are asked to review log in times for driver's starting out of Shippensburg. What tools would you use to quickly check that the driver's logged in?",
     modelAnswer: `You should utilize the DRV_SHIFT command center and set your parameters for drivers starting out of Shippensburg. You could also check specific drivers in OT1 using the Driver Log Editor. `,
   },
   {
@@ -114,111 +113,58 @@ const sampleScenarios = [
     modelAnswer: `Placeholder model answer for Sample Scenario 3.`,
   },
 ];
-function StudyGuide({ onBack }) {
-  const terms = [
-    "TMW",
-    "Road Ready/Fusion",
-    "OT1",
-    "Dialpad",
-    "Heymarket",
-    "Penske Fleet Insight",
-    "DRV_SHIFT",
-    "JDA/Blue Yonder",
-    ...Array.from({ length: 12 }, (_, i) => `Term ${i + 9}`),
-  ];
-  const [expanded, setExpanded] = useState(null);
-  return (
-    <div className="container">
-      <div className="card">
-        <h2>Study Guide</h2>
-        {terms.map((term, index) => (
-          <div key={index}>
-            <button
-              onClick={() => setExpanded(expanded === index ? null : index)}
-              style={{ width: "100%", textAlign: "left", marginBottom: "5px" }}
-            >
-              {term}
-            </button>
-            {expanded === index && (
-              <div style={{ paddingLeft: "10px", marginBottom: "10px" }}>
-                <em>Placeholder definition for {term}...</em>
-              </div>
-            )}
-          </div>
-        ))}
-        <div style={{ marginTop: "20px" }}>
-          <button onClick={onBack}>Back</button>
-        </div>
-      </div>
-    </div>
-  );
-}
+
+const SHEETBEST_URL =
+  "https://api.sheetbest.com/sheets/e58724c9-1ad0-4152-8272-a69961763a74";
 
 export default function App() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [isNamed, setIsNamed] = useState(false);
-  const [showDirectory, setShowDirectory] = useState(false);
-  const [showInstructions, setShowInstructions] = useState(false);
   const [trainingType, setTrainingType] = useState(null);
   const [current, setCurrent] = useState(0);
   const [response, setResponse] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [completed, setCompleted] = useState(false);
-  const [responses, setResponses] = useState({});
-  const [durations, setDurations] = useState({});
   const [startTime, setStartTime] = useState(Date.now());
-  const [allTrainees, setAllTrainees] = useState(() => {
-    const saved = localStorage.getItem("allTraineeData");
-    return saved ? JSON.parse(saved) : {};
-  });
-  const [hasExported, setHasExported] = useState(false);
-  const [showStudyGuide, setShowStudyGuide] = useState(false);
+  const [completed, setCompleted] = useState(false);
 
   const activeScenarioSet =
     trainingType === "sample" ? sampleScenarios : toolsQuestions;
   const scenario = activeScenarioSet[current];
 
   useEffect(() => {
-    setStartTime(Date.now());
     setResponse("");
     setSubmitted(false);
+    setStartTime(Date.now());
   }, [current]);
 
-  useEffect(() => {
-    if (completed && !hasExported) {
-      exportToCSV(allTrainees);
-      setHasExported(true);
+  const sendToGoogleSheets = async (data) => {
+    try {
+      await fetch(SHEETBEST_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+    } catch (error) {
+      console.error("Failed to send data to Google Sheets:", error);
     }
-  }, [completed, hasExported, allTrainees]);
+  };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!response.trim()) {
       alert("Please enter a response before submitting.");
       return;
     }
-    const endTime = Date.now();
-    const timeSpent = Math.round((endTime - startTime) / 1000);
-    const traineeName = `${firstName} ${lastName}`;
-    const updatedResponses = {
-      ...(allTrainees[traineeName]?.responses || {}),
-      [scenario.id]: response,
+    const timeSpent = Math.round((Date.now() - startTime) / 1000);
+    const submission = {
+      name: `${firstName} ${lastName}`,
+      scenario: scenario.title,
+      response,
+      timeSpentSeconds: timeSpent,
+      trainingType,
+      timestamp: new Date().toISOString(),
     };
-    const updatedDurations = {
-      ...(allTrainees[traineeName]?.durations || {}),
-      [scenario.id]: timeSpent,
-    };
-    const updatedAllTrainees = {
-      ...allTrainees,
-      [traineeName]: {
-        responses: updatedResponses,
-        durations: updatedDurations,
-      },
-    };
-    setAllTrainees(updatedAllTrainees);
-    setResponses(updatedResponses);
-    setDurations(updatedDurations);
-    localStorage.setItem("allTraineeData", JSON.stringify(updatedAllTrainees));
+    await sendToGoogleSheets(submission);
     setSubmitted(true);
   };
 
@@ -230,49 +176,10 @@ export default function App() {
     }
   };
 
-  const handleRestart = () => {
-    setIsNamed(false);
-    setFirstName("");
-    setLastName("");
-    setShowDirectory(false);
-    setShowInstructions(false);
-    setTrainingType(null);
-    setCurrent(0);
-    setCompleted(false);
-    setResponses({});
-    setDurations({});
-    setSubmitted(false);
-    setHasExported(false);
-  };
-
-  const handleReturnHome = () => {
-    if (window.confirm("Returning home will reset progress. Are you sure?")) {
-      setShowInstructions(false);
-      setCurrent(0);
-      setCompleted(false);
-      setResponses({});
-      setDurations({});
-      setSubmitted(false);
-      setShowDirectory(true);
-    }
-  };
-
-  if (showStudyGuide) {
-    return (
-      <StudyGuide
-        onBack={() => {
-          setShowStudyGuide(false);
-          setShowDirectory(true);
-        }}
-      />
-    );
-  }
-
-  if (!isNamed && !showDirectory) {
+  if (!isNamed) {
     return (
       <div className="container">
         <div className="card">
-          <img src="/CPC ICON.PNG" alt="CPC Icon" className="login-logo" />
           <h2>Enter Your Full Name to Begin</h2>
           <input
             value={firstName}
@@ -286,7 +193,7 @@ export default function App() {
           />
           <button
             onClick={() => {
-              if (firstName && lastName) setShowDirectory(true);
+              if (firstName && lastName) setIsNamed(true);
             }}
           >
             Continue
@@ -296,83 +203,16 @@ export default function App() {
     );
   }
 
-  if (showDirectory) {
-    return (
-      <div className="container" style={{ position: "relative" }}>
-        <div className="card">
-          <p style={{ fontWeight: "bold" }}>
-            Welcome {firstName} {lastName}
-          </p>
-          <h2>Select a Training Module</h2>
-          <button
-            onClick={() => {
-              setTrainingType("sample");
-              setShowInstructions(true);
-              setIsNamed(true);
-              setShowDirectory(false);
-              setCurrent(0);
-            }}
-          >
-            Sample Call Test
-          </button>
-          <button
-            onClick={() => {
-              setTrainingType("tools");
-              setShowInstructions(true);
-              setIsNamed(true);
-              setShowDirectory(false);
-              setCurrent(0);
-            }}
-          >
-            Which Tools Test
-          </button>
-          <button
-            onClick={() => {
-              setShowDirectory(false);
-              setShowStudyGuide(true);
-            }}
-            style={{ marginTop: "10px" }}
-          >
-            Study Guide
-          </button>
-          <button onClick={handleRestart} style={{ marginTop: "10px" }}>
-            Log Out
-          </button>
-        </div>
-        );
-      </div>
-    );
-  }
-
-  if (showInstructions) {
-    if (trainingType === "tools") {
-      return (
-        <div className="container">
-          <div className="card">
-            <h2>Tools Test Instructions</h2>
-            <p>
-              This test will ask you to name the most useful tools for each
-              scenario listed. Please name as many that come to mind that could
-              be utilized and explain what you would use each of them for.
-            </p>
-            <button onClick={() => setShowInstructions(false)}>
-              Start Tools Test
-            </button>
-          </div>
-        </div>
-      );
-    }
+  if (!trainingType) {
     return (
       <div className="container">
         <div className="card">
-          <h2>Instructions</h2>
-          <p>
-            This exercise will put you through several mock phone calls from
-            drivers. Please answer to the best of your ability and reference
-            specific tools you may be able to use to assist the driver.
-          </p>
-          <button onClick={() => setShowInstructions(false)}>
-            Start Training
+          <h2>Select a Training Module</h2>
+          <button onClick={() => setTrainingType("sample")}>
+            Sample Call Test
+          </button>
+          <button onClick={() => setTrainingType("tools")}>
+            Which Tools Test
           </button>
         </div>
       </div>
@@ -383,9 +223,8 @@ export default function App() {
     return (
       <div className="container">
         <div className="card">
-          <h2>🎉 Congratulations!</h2>
-          <p>You have completed the training exercise.</p>
-          <button onClick={handleReturnHome}>Restart</button>
+          <h2>✅ Training Complete</h2>
+          <p>All results have been saved to the cloud.</p>
         </div>
       </div>
     );
@@ -393,29 +232,18 @@ export default function App() {
 
   return (
     <div className="container">
-      <div style={{ position: "absolute", bottom: 20, left: 20 }}>
-        <button onClick={handleRestart}>Log Out</button>
-      </div>
-      <div style={{ position: "absolute", bottom: 20, right: 20 }}>
-        <button onClick={handleReturnHome}>Return Home</button>
-      </div>
       <div className="card">
-        <h2>{scenario.title || `Scenario ${scenario.id}`}</h2>
+        <h2>{scenario.title}</h2>
         {trainingType === "sample" && audioFiles[scenario.id] && (
-          <audio
-            key={audioFiles[scenario.id]}
-            controls
-            style={{ display: "block", marginBottom: "10px" }}
-          >
+          <audio controls>
             <source src={audioFiles[scenario.id]} type="audio/mpeg" />
-            Your browser does not support the audio element.
           </audio>
         )}
-        {scenario.driverText && <p> {scenario.driverText}</p>}
+        <p>{scenario.driverText}</p>
         <textarea
           value={response}
           onChange={(e) => setResponse(e.target.value)}
-          placeholder="Type your response here..."
+          placeholder="Type your response..."
         />
         {!submitted ? (
           <button onClick={handleSubmit}>Submit Response</button>
@@ -425,38 +253,10 @@ export default function App() {
               <strong>Model Answer:</strong>
               <p>{scenario.modelAnswer}</p>
             </div>
-            <button onClick={handleNext}>Next Scenario</button>
+            <button onClick={handleNext}>Next</button>
           </>
         )}
       </div>
     </div>
   );
-}
-
-function exportToCSV(data) {
-  const headers = ["Trainee", "Scenario", "Response", "Time Spent (s)"];
-  const rows = [];
-  for (const [trainee, { responses, durations }] of Object.entries(data)) {
-    [...sampleScenarios, ...toolsQuestions].forEach((s) => {
-      rows.push([
-        trainee,
-        s.title,
-        responses[s.id] || "",
-        durations[s.id] || 0,
-      ]);
-    });
-  }
-  const csvContent =
-    "data:text/csv;charset=utf-8," +
-    [
-      headers.join(","),
-      ...rows.map((r) => r.map((x) => `"${x}"`).join(",")),
-    ].join("\n");
-  const encodedUri = encodeURI(csvContent);
-  const link = document.createElement("a");
-  link.setAttribute("href", encodedUri);
-  link.setAttribute("download", "trainee_responses.csv");
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
 }
