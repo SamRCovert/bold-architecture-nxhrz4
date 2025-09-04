@@ -435,6 +435,7 @@ export default function App() {
           value={response}
           onChange={(e) => setResponse(e.target.value)}
           placeholder="Type your response here..."
+          disabled={submitted}
         />
         {!submitted ? (
           <button onClick={handleSubmit}>Submit Response</button>
