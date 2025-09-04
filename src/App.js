@@ -57,8 +57,9 @@ OT1 to Check the driver logs for the previously assigned driver`,
   {
     id: 6,
     title: "Tools Question 7",
-    driverText: "Sample",
-    modelAnswer: `Sample`,
+    driverText:
+      "99SINT calls in asking to confirm that their assigned BOL is ready. What tools can you use to verify that the trailer has been loaded?",
+    modelAnswer: `You could pull the load up in Customer Service and click on the "Custom Def's" tab. While in that tab, check the "Trailer Loaded" box and see if there is a time stamp. You could also reference the ROAR report, for the shipping site, to see if there is a trailer assigned.`,
   },
   {
     id: 7,
