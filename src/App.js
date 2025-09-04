@@ -64,8 +64,9 @@ OT1 to Check the driver logs for the previously assigned driver`,
   {
     id: 7,
     title: "Tools Question 8",
-    driverText: "Sample",
-    modelAnswer: `Sample`,
+    driverText:
+      "MOUM calls in asking for the location of a specific truck. What tools can you use to locate that specific unit?",
+    modelAnswer: `You could use "Fleetview" inside of OT1 to search the location of a specific unit. You could also try checking the location in Penske Fleet Insight.`,
   },
   {
     id: 8,
