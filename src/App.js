@@ -320,7 +320,39 @@ export default function App() {
     return (
       <div className="container" style={{ position: "relative" }}>
         {showDirectory && (
-          <img src="/BouncingLogo.PNG" alt="CPC Logo" id="bouncing-logo" />
+          <>
+            <img src="/BouncingLogo.PNG" alt="CPC Logo" id="bouncing-logo" />
+            <img
+              src="/BouncingLogo.PNG"
+              alt="CPC Logo 2"
+              id="bouncing-logo-2"
+            />
+            <img
+              src="/BouncingLogo.PNG"
+              alt="CPC Logo 3"
+              id="bouncing-logo-3"
+            />
+            <img
+              src="/BouncingLogo.PNG"
+              alt="CPC Logo 4"
+              id="bouncing-logo-4"
+            />
+            <img
+              src="/BouncingLogo.PNG"
+              alt="CPC Logo 5"
+              id="bouncing-logo-5"
+            />
+            <img
+              src="/BouncingLogo.PNG"
+              alt="CPC Logo 6"
+              id="bouncing-logo-6"
+            />
+            <img
+              src="/BouncingLogo.PNG"
+              alt="CPC Logo 7"
+              id="bouncing-logo-7"
+            />
+          </>
         )}
         <div className="card">
           <p style={{ fontWeight: "bold" }}>

@@ -120,37 +120,149 @@ button + button {
   align-items: center;
   z-index: 9998;
 }
-#bouncing-logo {
-  position: fixed;
-  width: 100px;
-  height: 100px;
-  top: 100px;
-  left: 100px;
-  z-index: 0;
-  opacity: 0.3;
-  pointer-events: none;
-  animation: bounceLogo 20s linear infinite;
-}
-
-@keyframes bounceLogo {
+@keyframes bounce {
   0% {
-    top: 0;
-    left: 0;
+    transform: translate(0, 0);
   }
   25% {
-    top: 0;
-    left: calc(100vw - 100px);
+    transform: translate(5vw, 5vh);
   }
   50% {
-    top: calc(100vh - 100px);
-    left: calc(100vw - 100px);
+    transform: translate(-5vw, 5vh);
   }
   75% {
-    top: calc(100vh - 100px);
-    left: 0;
+    transform: translate(-5vw, -5vh);
   }
   100% {
-    top: 0;
-    left: 0;
+    transform: translate(5vw, -5vh);
+  }
+}
+
+[id^="bouncing-logo-"] {
+  position: absolute;
+  width: 100px;
+  height: auto;
+  opacity: 0.1;
+  animation: bounce s infinite alternate ease-in-out;
+}
+
+/* Optional: staggered animation delays for more randomness */
+#bouncing-logo,
+#bouncing-logo-2,
+#bouncing-logo-3,
+#bouncing-logo-4,
+#bouncing-logo-5,
+#bouncing-logo-6,
+#bouncing-logo-7 {
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  opacity: 0.2;
+}
+
+/* Unique bounce animations and placements */
+#bouncing-logo {
+  top: 0;
+  left: 0;
+  animation: bounce-1 12s linear infinite alternate;
+}
+
+#bouncing-logo-2 {
+  bottom: 0;
+  right: 0;
+  animation: bounce-2 12s linear infinite alternate;
+}
+
+#bouncing-logo-3 {
+  top: 30%;
+  left: 10%;
+  animation: bounce-3 13s linear infinite alternate;
+}
+
+#bouncing-logo-4 {
+  top: 80%;
+  left: 5%;
+  animation: bounce-4 14s linear infinite alternate;
+}
+
+#bouncing-logo-5 {
+  top: 50%;
+  right: 10%;
+  animation: bounce-5 13s linear infinite alternate;
+}
+
+#bouncing-logo-6 {
+  bottom: 10%;
+  left: 40%;
+  animation: bounce-6 15s linear infinite alternate;
+}
+
+#bouncing-logo-7 {
+  top: 10%;
+  right: 30%;
+  animation: bounce-7 14s linear infinite alternate;
+}
+
+/* Keyframes (different paths and slower movement) */
+@keyframes bounce-1 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(80vw, 80vh);
+  }
+}
+
+@keyframes bounce-2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-70vw, -70vh);
+  }
+}
+
+@keyframes bounce-3 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50vw, -60vh);
+  }
+}
+
+@keyframes bounce-4 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(60vw, -30vh);
+  }
+}
+
+@keyframes bounce-5 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-50vw, 60vh);
+  }
+}
+
+@keyframes bounce-6 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(40vw, -50vh);
+  }
+}
+
+@keyframes bounce-7 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-60vw, 30vh);
   }
 }
