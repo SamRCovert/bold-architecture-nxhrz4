@@ -50,8 +50,9 @@ OT1 to Check the driver logs for the previously assigned driver`,
   {
     id: 5,
     title: "Tools Question 6",
-    driverText: "Sample",
-    modelAnswer: `Sample`,
+    driverText:
+      "Driver RINS calls in stating that the previous driver who had their load accidentally lost the paperwork. What tools could you use to find another copy to send over to him?",
+    modelAnswer: `You could use JDA/Blue Yonder to download the MBOL (Master Bill of Lading) and email it to the driver. In more niche scenarios, checking customer service, in TMW, may yield pictures of the original BOL that could be used in a pinch. `,
   },
   {
     id: 6,
