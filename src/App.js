@@ -219,6 +219,25 @@ export default function App() {
     setResponses(updatedResponses);
     setDurations(updatedDurations);
     localStorage.setItem("allTraineeData", JSON.stringify(updatedAllTrainees));
+    const sheetBestUrl =
+      "https://api.sheetbest.com/sheets/e58724c9-1ad0-4152-8272-a69961763a74";
+
+    fetch(sheetBestUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        trainee: `${firstName} ${lastName}`,
+        scenario: scenario.title,
+        response: response,
+        timeSpent: timeSpent,
+        timestamp: new Date().toISOString(),
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log("✅ Sent to Google Sheets:", data))
+      .catch((err) => console.error("❌ Error sending to Google Sheets:", err));
     setSubmitted(true);
   };
 
