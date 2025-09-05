@@ -3,10 +3,10 @@ import React, { useState, useEffect } from "react";
 import "./styles.css";
 
 const audioFiles = {
-  1: "/file_example_MP3_1MG.mp3",
-  2: "/sample-12s%20Scenario%202%20test.mp3",
-  3: "/sample-15s%20Scenario%203%20test.mp3",
-  // No audio for toolsQuestions[1]
+  1: "/audio/training-call-1.mp3",
+  2: "/audio/training-call-2.mp3",
+  3: "/audio/training-call-3.mp3",
+  4: "/audio/training-call-4.mp3",
 };
 
 const toolsQuestions = [
@@ -102,6 +102,12 @@ const sampleScenarios = [
     title: "Sample Scenario 3",
     driverText: "This is a placeholder driver message for sample scenario 3.",
     modelAnswer: `Placeholder model answer for Sample Scenario 3.`,
+  },
+  {
+    id: 4,
+    title: "",
+    driverText: "",
+    modelAnswer: "Model answer here...",
   },
 ];
 function StudyGuide({ onBack }) {
