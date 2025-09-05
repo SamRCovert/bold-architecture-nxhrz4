@@ -80,7 +80,7 @@ OT1 to Check the driver logs for the previously assigned driver`,
     title: "Tools Question 10",
     driverText:
       "Your supervisor informs you that one of your dispatches went into DISPERROR. What tools can you use to locate and clear out the error?",
-    modelAnswer: `YOu could use the HUD in TMW via the command center to locate the DISPERROR. YOu could then use quick filters and customer service to find any other trips the driver is assigned/sent on.`,
+    modelAnswer: `You could use the HUD in TMW via the command center to locate the DISPERROR. YOu could then use quick filters and customer service to find any other trips the driver is assigned/sent on.`,
   },
 ];
 
