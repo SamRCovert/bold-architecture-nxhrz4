@@ -2,7 +2,10 @@
 import React, { useState, useEffect } from "react";
 import "./styles.css";
 const changelogText = `
-v1 - Flashcards now track answers and log to Google Sheets
+v1.3 - Added SOP module with working links
+v1.2 - Added flash cards inside the study guide module
+v1.1 - Added 4 sample phone call files 
+v1 - Finished 10 Tools questions with answers
 `;
 const audioFiles = {
   0: "/audio/training-call-1.mp3",
