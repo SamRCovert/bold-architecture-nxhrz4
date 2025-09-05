@@ -117,31 +117,31 @@ const sampleScenarios = [
 ];
 function StudyGuide({ onBack }) {
   const terms = [
-    { term: "TMW", definition: "Transportation Management Workflow" },
+    { term: "TMW", definition: "(Needs definition)" },
     {
       term: "Road Ready/Fusion",
-      definition: "Trailer tracking and maintenance platform",
+      definition: "(Needs definition)",
     },
     {
       term: "OT1",
-      definition: "Operational Tool 1, used for dispatch mapping",
+      definition: "(Needs definition)",
     },
-    { term: "Dialpad", definition: "VoIP system used to call drivers" },
+    { term: "Dialpad", definition: "(Needs definition)" },
     {
       term: "Heymarket",
-      definition: "SMS communication platform for driver texting",
+      definition: "(Needs definition)",
     },
     {
       term: "Penske Fleet Insight",
-      definition: "Fleet diagnostics and real-time maintenance alerts",
+      definition: "(Needs definition)",
     },
     {
       term: "DRV_SHIFT",
-      definition: "Driver shift scheduling and handoff tracking",
+      definition: "(Needs definition)",
     },
     {
       term: "JDA/Blue Yonder",
-      definition: "Yard and trailer movement tracking system",
+      definition: "Y(Needs definition)",
     },
     ...Array.from({ length: 12 }, (_, i) => ({
       term: `Term ${i + 9}`,
