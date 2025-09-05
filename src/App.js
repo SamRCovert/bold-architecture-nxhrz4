@@ -498,7 +498,7 @@ export default function App() {
               if (firstName && lastName) setShowDirectory(true);
             }}
           >
-            Continue
+            Log In
           </button>
         </div>
       </div>
