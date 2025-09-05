@@ -141,8 +141,53 @@ function StudyGuide({ onBack }) {
     },
     {
       term: "JDA/Blue Yonder",
-      definition: "Y(Needs definition)",
+      definition: "(Needs definition)",
     },
+    {
+      term: "Test",
+      definition: "(Needs definition)",
+    },
+    {
+      term: "Test",
+      definition: "(Needs definition)",
+    },
+    {
+      term: "Test",
+      definition: "(Needs definition)",
+    },
+    {
+      term: "Test",
+      definition: "(Needs definition)",
+    },
+    {
+      term: "Test",
+      definition: "(Needs definition)",
+    },
+    {
+      term: "Test",
+      definition: "(Needs definition)",
+    },
+    {
+      term: "Test",
+      definition: "(Needs definition)",
+    },
+    {
+      term: "Test",
+      definition: "(Needs definition)",
+    },
+    {
+      term: "Test",
+      definition: "(Needs definition)",
+    },
+    {
+      term: "Test",
+      definition: "(Needs definition)",
+    },
+    {
+      term: "Test",
+      definition: "(Needs definition)",
+    },
+
     ...Array.from({ length: 12 }, (_, i) => ({
       term: `Term ${i + 9}`,
       definition: `Definition for term ${i + 9}`,
