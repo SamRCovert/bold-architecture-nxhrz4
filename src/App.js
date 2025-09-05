@@ -283,6 +283,7 @@ function StudyGuide({ onBack }) {
 export default function App() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [showSOP, setShowSOP] = useState(false);
   const [isNamed, setIsNamed] = useState(false);
   const [showDirectory, setShowDirectory] = useState(false);
   const [showInstructions, setShowInstructions] = useState(false);
@@ -413,6 +414,68 @@ export default function App() {
       />
     );
   }
+  if (showSOP) {
+    return (
+      <div className="container">
+        <div className="card">
+          <h2>SOP Resources</h2>
+
+          {[
+            {
+              name: "Re-plan/Driver call off process",
+              url: "https://scribehow.com/viewer/Re-PlanDriver_Call_Off_Process_04-24-2025__rBLiWG1cRDOR-m4uZdaFZw?referrer=documents",
+            },
+            {
+              name: "Finding location addresses in TMW",
+              url: "https://scribehow.com/viewer/Finding_an_Address_for_any_Location_Using_the_OPS_Command_Center__olOQNAOAQ8SRFNJG0qEA7g?referrer=documents",
+            },
+            {
+              name: "Sending loads and monitoring drivers using DRV_SHIFT",
+              url: "https://scribehow.com/viewer/Sending_Loads_and_Monitoring_Drivers_Via_DRVSHIFT__jteIzCbVRxWFAqecyBwLwQ?referrer=documents",
+            },
+            {
+              name: "Walking a load through in TMW",
+              url: "https://scribehow.com/viewer/Walking_a_load_through_to_send_to_the_second_driver_on_a_trip__mCWmPv6bTlezZxSWoKUrJQ?referrer=documents",
+            },
+            {
+              name: "Using quick filters",
+              url: "https://scribehow.com/viewer/Using_Quick_Filters_on_the_Freight_Bills_Grid__GX8O2cECQ1yBwEdp9D3xjQ?referrer=documents",
+            },
+            {
+              name: "Removing a driver from a special event",
+              url: "https://scribehow.com/viewer/Removing_a_Driver_From_an_Expired_Special_Event__9CfpAe4KTw6xwQphZoojoA?referrer=documents",
+            },
+            {
+              name: "Placeholder for next SOP",
+              url: "https://scribehow.com/viewer/Walking_a_load_through_to_send_to_the_second_driver_on_a_trip__mCWmPv6bTlezZxSWoKUrJQ?referrer=documents",
+            },
+          ].map((item, index) => (
+            <a
+              key={index}
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="menu-button"
+              style={{ display: "block", marginBottom: "10px" }}
+            >
+              {item.name}
+            </a>
+          ))}
+
+          <button
+            className="menu-button"
+            onClick={() => {
+              setShowSOP(false);
+              setShowDirectory(true);
+            }}
+            style={{ marginTop: "20px" }}
+          >
+            Back
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   if (!isNamed && !showDirectory) {
     return (
@@ -516,6 +579,16 @@ export default function App() {
           >
             Study Guide
           </button>
+          <button
+            onClick={() => {
+              setShowDirectory(false);
+              setShowSOP(true);
+            }}
+            style={{ marginTop: "10px" }}
+          >
+            SOP's
+          </button>
+
           <button onClick={handleRestart} style={{ marginTop: "10px" }}>
             Log Out
           </button>
