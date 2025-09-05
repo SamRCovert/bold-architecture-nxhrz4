@@ -71,14 +71,16 @@ OT1 to Check the driver logs for the previously assigned driver`,
   {
     id: 8,
     title: "Tools Question 9",
-    driverText: "Sample",
-    modelAnswer: `Sample`,
+    driverText:
+      "LUMM call is stating that they were involved in an accident involving another vehicle. What tools can you use to report the accident?",
+    modelAnswer: `You could and should send in an accident report via the link on the CPC Logistics Onedrive page. You can also use Heymarket to send the Penske 24/7 line number to the driver.`,
   },
   {
     id: 9,
     title: "Tools Question 10",
-    driverText: "Sample",
-    modelAnswer: `Sample`,
+    driverText:
+      "Your supervisor informs you that one of your dispatches went into DISPERROR. What tools can you use to locate and clear out the error?",
+    modelAnswer: `YOu could use the HUD in TMW via the command center to locate the DISPERROR. YOu could then use quick filters and customer service to find any other trips the driver is assigned/sent on.`,
   },
 ];
 
