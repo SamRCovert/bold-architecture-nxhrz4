@@ -3,10 +3,10 @@ import React, { useState, useEffect } from "react";
 import "./styles.css";
 
 const audioFiles = {
-  1: "/audio/training-call-1.mp3",
-  2: "/audio/training-call-2.mp3",
-  3: "/audio/training-call-3.mp3",
-  4: "/audio/training-call-4.mp3",
+  0: "/audio/training-call-1.mp3",
+  1: "/audio/training-call-2.mp3",
+  2: "/audio/training-call-3.mp3",
+  3: "/audio/training-call-4.mp3",
 };
 
 const toolsQuestions = [
@@ -86,27 +86,27 @@ OT1 to Check the driver logs for the previously assigned driver`,
 
 const sampleScenarios = [
   {
-    id: 1,
+    id: 0,
     title: "Sample Scenario 1",
-    driverText: "This is a placeholder driver message for sample scenario 1.",
+    driverText: "Please list the actions you can take to assist the driver.",
     modelAnswer: `Placeholder model answer for Sample Scenario 1.`,
   },
   {
-    id: 2,
+    id: 1,
     title: "Sample Scenario 2",
-    driverText: "This is a placeholder driver message for sample scenario 2.",
+    driverText: "Please list the actions you can take to assist the driver.",
     modelAnswer: `Placeholder model answer for Sample Scenario 2.`,
   },
   {
-    id: 3,
+    id: 2,
     title: "Sample Scenario 3",
-    driverText: "This is a placeholder driver message for sample scenario 3.",
+    driverText: "Please list the actions you can take to assist the driver.",
     modelAnswer: `Placeholder model answer for Sample Scenario 3.`,
   },
   {
-    id: 4,
-    title: "",
-    driverText: "",
+    id: 3,
+    title: "Sample Scenario 4",
+    driverText: "Please list the actions you can take to assist the driver.",
     modelAnswer: "Model answer here...",
   },
 ];
