@@ -1,7 +1,9 @@
 // Dispatcher Training Simulator with corrected scenario selection and Home button
 import React, { useState, useEffect } from "react";
 import "./styles.css";
-
+const changelogText = `
+v1 - Flashcards now track answers and log to Google Sheets
+`;
 const audioFiles = {
   0: "/audio/training-call-1.mp3",
   1: "/audio/training-call-2.mp3",
@@ -499,6 +501,17 @@ export default function App() {
             }}
           >
             Log In
+          </button>
+
+          <button
+            onClick={() => alert(changelogText)}
+            style={{
+              marginTop: "10px",
+              backgroundColor: "#eee",
+              color: "#000",
+            }}
+          >
+            View Changelog
           </button>
         </div>
       </div>
