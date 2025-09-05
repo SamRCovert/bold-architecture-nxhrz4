@@ -112,36 +112,166 @@ const sampleScenarios = [
 ];
 function StudyGuide({ onBack }) {
   const terms = [
-    "TMW",
-    "Road Ready/Fusion",
-    "OT1",
-    "Dialpad",
-    "Heymarket",
-    "Penske Fleet Insight",
-    "DRV_SHIFT",
-    "JDA/Blue Yonder",
-    ...Array.from({ length: 12 }, (_, i) => `Term ${i + 9}`),
+    { term: "TMW", definition: "Transportation Management Workflow" },
+    {
+      term: "Road Ready/Fusion",
+      definition: "Trailer tracking and maintenance platform",
+    },
+    {
+      term: "OT1",
+      definition: "Operational Tool 1, used for dispatch mapping",
+    },
+    { term: "Dialpad", definition: "VoIP system used to call drivers" },
+    {
+      term: "Heymarket",
+      definition: "SMS communication platform for driver texting",
+    },
+    {
+      term: "Penske Fleet Insight",
+      definition: "Fleet diagnostics and real-time maintenance alerts",
+    },
+    {
+      term: "DRV_SHIFT",
+      definition: "Driver shift scheduling and handoff tracking",
+    },
+    {
+      term: "JDA/Blue Yonder",
+      definition: "Yard and trailer movement tracking system",
+    },
+    ...Array.from({ length: 12 }, (_, i) => ({
+      term: `Term ${i + 9}`,
+      definition: `Definition for term ${i + 9}`,
+    })),
   ];
+
   const [expanded, setExpanded] = useState(null);
+  const [showFlashCard, setShowFlashCard] = useState(false);
+  const [usedIndexes, setUsedIndexes] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(null);
+  const [userInput, setUserInput] = useState("");
+  const [revealed, setRevealed] = useState(false);
+
+  const handleNextFlashCard = () => {
+    if (usedIndexes.length >= terms.length) {
+      setCurrentIndex(null);
+      return;
+    }
+
+    let newIndex;
+    do {
+      newIndex = Math.floor(Math.random() * terms.length);
+    } while (usedIndexes.includes(newIndex));
+
+    setUsedIndexes([...usedIndexes, newIndex]);
+    setCurrentIndex(newIndex);
+    setUserInput("");
+    setRevealed(false);
+  };
+
+  const handleSubmit = () => {
+    setRevealed(true);
+
+    // 🟢 Send to Excel or Google Sheets API here
+    // This is where you'd call your API
+    console.log("Submitted:", {
+      term: terms[currentIndex].term,
+      userInput,
+      correctAnswer: terms[currentIndex].definition,
+    });
+  };
+
+  const handleStartFlashCards = () => {
+    setShowFlashCard(true);
+    handleNextFlashCard(); // start the first card immediately
+  };
+
   return (
     <div className="container">
       <div className="card">
         <h2>Study Guide</h2>
-        {terms.map((term, index) => (
-          <div key={index}>
-            <button
-              onClick={() => setExpanded(expanded === index ? null : index)}
-              style={{ width: "100%", textAlign: "left", marginBottom: "5px" }}
-            >
-              {term}
-            </button>
-            {expanded === index && (
-              <div style={{ paddingLeft: "10px", marginBottom: "10px" }}>
-                <em>Placeholder definition for {term}...</em>
+
+        {/* Show Study List */}
+        {!showFlashCard && (
+          <>
+            {terms.map((item, index) => (
+              <div key={index}>
+                <button
+                  onClick={() => setExpanded(expanded === index ? null : index)}
+                  style={{
+                    width: "100%",
+                    textAlign: "left",
+                    marginBottom: "5px",
+                  }}
+                >
+                  {item.term}
+                </button>
+                {expanded === index && (
+                  <div
+                    style={{
+                      paddingLeft: "10px",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    <em>{item.definition}</em>
+                  </div>
+                )}
               </div>
+            ))}
+
+            <div style={{ marginTop: "20px" }}>
+              <button onClick={handleStartFlashCards}>Start Flash Cards</button>
+            </div>
+          </>
+        )}
+
+        {/* Flash Card UI */}
+        {showFlashCard && (
+          <div
+            style={{
+              border: "1px solid #aaa",
+              borderRadius: "8px",
+              padding: "20px",
+              marginTop: "20px",
+              backgroundColor: "#f9f9f9",
+            }}
+          >
+            {currentIndex === null ? (
+              <div>
+                <p>
+                  <strong>You've completed all flash cards!</strong>
+                </p>
+              </div>
+            ) : (
+              <>
+                <h3 style={{ marginBottom: "10px" }}>
+                  Term: {terms[currentIndex].term}
+                </h3>
+                <input
+                  type="text"
+                  placeholder="Type your definition..."
+                  value={userInput}
+                  onChange={(e) => setUserInput(e.target.value)}
+                  style={{
+                    width: "100%",
+                    padding: "8px",
+                    marginBottom: "10px",
+                  }}
+                />
+                {!revealed ? (
+                  <button onClick={handleSubmit}>Reveal Answer</button>
+                ) : (
+                  <>
+                    <p>
+                      <strong>Correct:</strong> {terms[currentIndex].definition}
+                    </p>
+                    <button onClick={handleNextFlashCard}>Next</button>
+                  </>
+                )}
+              </>
             )}
           </div>
-        ))}
+        )}
+
         <div style={{ marginTop: "20px" }}>
           <button onClick={onBack}>Back</button>
         </div>
