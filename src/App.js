@@ -451,15 +451,26 @@ export default function App() {
       </div>
       <div className="card">
         <h2>{scenario.title || `Scenario ${scenario.id}`}</h2>
+
         {trainingType === "sample" && audioFiles[scenario.id] && (
-          <audio
-            key={audioFiles[scenario.id]}
-            controls
-            style={{ display: "block", marginBottom: "10px" }}
-          >
-            <source src={audioFiles[scenario.id]} type="audio/mpeg" />
-            Your browser does not support the audio element.
-          </audio>
+          <div style={{ marginBottom: "10px" }}>
+            <img
+              src="/play-icon-v2.png?v=2"
+              alt="Play"
+              style={{ cursor: "pointer", width: "200px" }}
+              onClick={() => {
+                const audio = document.getElementById(`audio-${scenario.id}`);
+                if (audio) {
+                  audio.play();
+                }
+              }}
+            />
+            <audio
+              id={`audio-${scenario.id}`}
+              src={audioFiles[scenario.id]}
+              style={{ display: "none" }}
+            />
+          </div>
         )}
         {scenario.driverText && <p> {scenario.driverText}</p>}
         <textarea
