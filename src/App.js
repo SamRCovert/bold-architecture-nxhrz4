@@ -176,8 +176,6 @@ function StudyGuide({ onBack }) {
   const handleSubmit = () => {
     setRevealed(true);
 
-    // 🟢 Send to Excel or Google Sheets API here
-    // This is where you'd call your API
     console.log("Submitted:", {
       term: terms[currentIndex].term,
       userInput,
@@ -187,7 +185,7 @@ function StudyGuide({ onBack }) {
 
   const handleStartFlashCards = () => {
     setShowFlashCard(true);
-    handleNextFlashCard(); // start the first card immediately
+    handleNextFlashCard();
   };
 
   return (
@@ -362,7 +360,7 @@ export default function App() {
       body: JSON.stringify({
         trainee: `${firstName} ${lastName}`,
         scenario: scenario.title,
-        question: scenario.driverText, // <-- Add this line
+        question: scenario.driverText,
         response: response,
         timeSpent: timeSpent,
         timestamp: new Date().toISOString(),
