@@ -117,27 +117,40 @@ const sampleScenarios = [
 ];
 function StudyGuide({ onBack }) {
   const terms = [
-    { term: "TMW", definition: "(Needs definition)" },
+    {
+      term: "TMW",
+      definition:
+        "(AKA TruckMate- CPC's dispatching and load assignment software that is launched through the remote desktop)",
+    },
     {
       term: "Road Ready/Fusion",
-      definition: "(Needs definition)",
+      definition:
+        "(Trailer tracking software that goes off of pings to provide locations and timestamps)",
     },
     {
       term: "OT1",
-      definition: "(Needs definition)",
+      definition:
+        "(AKA Omnitracs- CPC's driver centric system that feeds into and feeds from TMW. Used by drivers to log hours, activate loads, ETC.)",
     },
-    { term: "Dialpad", definition: "(Needs definition)" },
+    {
+      term: "Dialpad",
+      definition:
+        "(Dispatcher phone system that directs driver phone calls to dispatchers determined by a queue system)",
+    },
     {
       term: "Heymarket",
-      definition: "(Needs definition)",
+      definition:
+        "(Dispatcher text system that can send and receive sms messages)",
     },
     {
       term: "Penske Fleet Insight",
-      definition: "(Needs definition)",
+      definition:
+        "(Penske's website specifically tailored to display CPC/P&G's fleet of tractors and trailers)",
     },
     {
       term: "DRV_SHIFT",
-      definition: "(Needs definition)",
+      definition:
+        "(Command center page within TMW that shows driver and assignment information depending on parametes set)",
     },
     {
       term: "JDA/Blue Yonder",
@@ -183,15 +196,6 @@ function StudyGuide({ onBack }) {
       term: "Test",
       definition: "(Needs definition)",
     },
-    {
-      term: "Test",
-      definition: "(Needs definition)",
-    },
-
-    ...Array.from({ length: 12 }, (_, i) => ({
-      term: `Term ${i + 9}`,
-      definition: `Definition for term ${i + 9}`,
-    })),
   ];
 
   const [expanded, setExpanded] = useState(null);
