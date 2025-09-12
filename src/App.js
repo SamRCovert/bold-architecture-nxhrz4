@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import "./styles.css";
 const changelogText = `
+v1.4 - Fixed array portion of "Study Guide" to limit terms
 v1.3 - Added SOP module with working links
 v1.2 - Added flash cards inside the study guide module
 v1.1 - Added 4 sample phone call files 
