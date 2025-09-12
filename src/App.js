@@ -156,47 +156,58 @@ function StudyGuide({ onBack }) {
     },
     {
       term: "JDA/Blue Yonder",
-      definition: "(P&G's system that shows In-Transit and Tendered loads. Can also be used to print paperwork.)",
+      definition:
+        "(P&G's system that shows In-Transit and Tendered loads. Can also be used to print paperwork.)",
     },
     {
       term: "ROAR Report",
-      definition: "(Reports released by a select number of P&G sites sent directly to our shared email that details each trailer currently on the lot)",
+      definition:
+        "(Reports released by a select number of P&G sites sent directly to our shared email that details each trailer currently on the lot)",
     },
     {
       term: "Quick Filters",
-      definition: "(Filters within the trip grid in TMW that allows you to narrow your search for available/already assigned loads)",
+      definition:
+        "(Filters within the trip grid in TMW that allows you to narrow your search for available/already assigned loads)",
     },
     {
       term: "Customer Service",
-      definition: "(Page within the remote desktop that shows most available information about a specific load)",
+      definition:
+        "(Page within the remote desktop that shows most available information about a specific load)",
     },
     {
       term: "HUD",
-      definition: "(Command center page within the Remote Desktop that gives a quick overview of trip statuses and overall grid health)",
+      definition:
+        "(Command center page within the Remote Desktop that gives a quick overview of trip statuses and overall grid health)",
     },
     {
       term: "Penske Fleet Insight",
-      definition: "(Penske's website specifically tailored to display CPC/P&G's fleet of tractors and trailers. Displays updated service information on said units)",
+      definition:
+        "(Penske's website specifically tailored to display CPC/P&G's fleet of tractors and trailers. Displays updated service information on said units)",
     },
     {
       term: "Standby",
-      definition: "(Driver status in TMW that asks for a driver to be available, from their home, for two hours past their pull time. If sent a dispatch during that time, they would be expected to run it)",
+      definition:
+        "(Driver status in TMW that asks for a driver to be available, from their home, for two hours past their pull time. If sent a dispatch during that time, they would be expected to run it)",
     },
     {
       term: "Report",
-      definition: "(Driver status in TMW that asks for a driver to be available, from the yard/domicile, for two hours past their pull time. If sent a dispatch during that time, they would be expected to run it)",
+      definition:
+        "(Driver status in TMW that asks for a driver to be available, from the yard/domicile, for two hours past their pull time. If sent a dispatch during that time, they would be expected to run it)",
     },
     {
       term: "Empty",
-      definition: "(Assignment for drivers to pull an empty trailer, not loaded with any product, from one location to another)",
+      definition:
+        "(Assignment for drivers to pull an empty trailer, not loaded with any product, from one location to another)",
     },
     {
       term: "Bobtail",
-      definition: "(Assignment for drivers to drive without a trailer attached, usually due to an empty and load not being available, from one location to another)",
+      definition:
+        "(Assignment for drivers to drive without a trailer attached, usually due to an empty and load not being available, from one location to another)",
     },
     {
-      term: "Attendance tracker",
-      definition: "(Microsoft form, located in the Sharepoint, that dispatchers are to fill out when a driver calls off, ends their report or standby, goes home early, ETC.)",
+      term: "Attendance Tracker",
+      definition:
+        "(Microsoft form, located in the Sharepoint, that dispatchers are to fill out when a driver calls off, ends their report or standby, goes home early, ETC.)",
     },
   ];
 
