@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import "./styles.css";
 const changelogText = `
+v1.5 - Finished adding terms and definitions to "Study Guide"
 v1.4 - Fixed array portion of "Study Guide" to limit terms
 v1.3 - Added SOP module with working links
 v1.2 - Added flash cards inside the study guide module
@@ -86,7 +87,7 @@ OT1 to Check the driver logs for the previously assigned driver`,
     title: "Tools Question 10",
     driverText:
       "Your supervisor informs you that one of your dispatches went into DISPERROR. What tools can you use to locate and clear out the error?",
-    modelAnswer: `You could use the HUD in TMW via the command center to locate the DISPERROR. YOu could then use quick filters and customer service to find any other trips the driver is assigned/sent on.`,
+    modelAnswer: `You could use the HUD in TMW via the command center to locate the DISPERROR. You could then use quick filters and customer service to find any other trips the driver is assigned/sent on.`,
   },
 ];
 
@@ -144,58 +145,58 @@ function StudyGuide({ onBack }) {
         "(Dispatcher text system that can send and receive sms messages)",
     },
     {
-      term: "Penske Fleet Insight",
+      term: "Remote Desktop",
       definition:
-        "(Penske's website specifically tailored to display CPC/P&G's fleet of tractors and trailers)",
+        "(Application pre-installed on the company issues laptops that allows you to launch TMW, Command Centers, Customer Service, ETC.)",
     },
     {
       term: "DRV_SHIFT",
       definition:
-        "(Command center page within TMW that shows driver and assignment information depending on parametes set)",
+        "(Command center page within the Remote Desktop that shows driver and assignment information depending on parametes set)",
     },
     {
       term: "JDA/Blue Yonder",
-      definition: "(Needs definition)",
+      definition: "(P&G's system that shows In-Transit and Tendered loads. Can also be used to print paperwork.)",
     },
     {
-      term: "Test",
-      definition: "(Needs definition)",
+      term: "ROAR Report",
+      definition: "(Reports released by a select number of P&G sites sent directly to our shared email that details each trailer currently on the lot)",
     },
     {
-      term: "Test",
-      definition: "(Needs definition)",
+      term: "Quick Filters",
+      definition: "(Filters within the trip grid in TMW that allows you to narrow your search for available/already assigned loads)",
     },
     {
-      term: "Test",
-      definition: "(Needs definition)",
+      term: "Customer Service",
+      definition: "(Page within the remote desktop that shows most available information about a specific load)",
     },
     {
-      term: "Test",
-      definition: "(Needs definition)",
+      term: "HUD",
+      definition: "(Command center page within the Remote Desktop that gives a quick overview of trip statuses and overall grid health)",
     },
     {
-      term: "Test",
-      definition: "(Needs definition)",
+      term: "Penske Fleet Insight",
+      definition: "(Penske's website specifically tailored to display CPC/P&G's fleet of tractors and trailers. Displays updated service information on said units)",
     },
     {
-      term: "Test",
-      definition: "(Needs definition)",
+      term: "Standby",
+      definition: "(Driver status in TMW that asks for a driver to be available, from their home, for two hours past their pull time. If sent a dispatch during that time, they would be expected to run it)",
     },
     {
-      term: "Test",
-      definition: "(Needs definition)",
+      term: "Report",
+      definition: "(Driver status in TMW that asks for a driver to be available, from the yard/domicile, for two hours past their pull time. If sent a dispatch during that time, they would be expected to run it)",
     },
     {
-      term: "Test",
-      definition: "(Needs definition)",
+      term: "Empty",
+      definition: "(Assignment for drivers to pull an empty trailer, not loaded with any product, from one location to another)",
     },
     {
-      term: "Test",
-      definition: "(Needs definition)",
+      term: "Bobtail",
+      definition: "(Assignment for drivers to drive without a trailer attached, usually due to an empty and load not being available, from one location to another)",
     },
     {
-      term: "Test",
-      definition: "(Needs definition)",
+      term: "Attendance tracker",
+      definition: "(Microsoft form, located in the Sharepoint, that dispatchers are to fill out when a driver calls off, ends their report or standby, goes home early, ETC.)",
     },
   ];
 
