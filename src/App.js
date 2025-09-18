@@ -147,7 +147,7 @@ function StudyGuide({ onBack }) {
     {
       term: "Remote Desktop",
       definition:
-        "(Application pre-installed on the company issues laptops that allows you to launch TMW, Command Centers, Customer Service, ETC.)",
+        "(Application pre-installed on the company issued laptops that allows you to launch TMW, Command Centers, Customer Service, ETC.)",
     },
     {
       term: "DRV_SHIFT",
